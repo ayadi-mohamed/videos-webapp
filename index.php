@@ -65,27 +65,33 @@
     crossorigin="anonymous"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-
+  <?php
+  $playlistApiUrl = getenv('PLAYLIST_API');
+  ?>
   <script>
+  var model = {
+    playlist: [],
+  };
 
-    var model = {
-      playlist: [],
-    };
-    var playlistApiUrl = process.env.PLAYLIST_API
-        var app = angular.module('videos', []);
-    app.controller('videosController', function ($scope, $http) {
+  var app = angular.module('videos', []);
 
-      $http.get(playlistApiUrl)
-        .then(function (response) {
+  // Create a configuration module to hold the API URL
+  app.constant('config', {
+    playlistApiUrl: '<?php echo $playlistApiUrl; ?>'
+  });
 
-          console.log(response);
-          //$scope.model = model;
-          for (i = 0; i < response.data.length; ++i) {
-            model.playlist.push(response.data[i]);
-          }
-          $scope.playlist = response.data;
-        });
-    });
+  app.controller('videosController', function ($scope, $http, config) {
+
+    $http.get(config.playlistApiUrl)
+      .then(function (response) {
+        console.log(response);
+        //$scope.model = model;
+        for (i = 0; i < response.data.length; ++i) {
+          model.playlist.push(response.data[i]);
+        }
+        $scope.playlist = response.data;
+      });
+  });
 
   </script>
 </body>
