@@ -1,3 +1,4 @@
 # videos-webapp
-This is simple frontend web application that is responsible for showing videos for users.
-We are using here nginx as a web server.
+This is a simple frontend web application that is responsible for displaying videos to users.
+
+We are using nginx as the web server here.
