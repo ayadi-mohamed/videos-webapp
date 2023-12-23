@@ -12,7 +12,7 @@
 
   <article>
     <nav class="navbar navbar-light bg-light">
-      <span class="navbar-brand mb-0 h1">Videos Catalog: "1.0.2"</span>
+      <span class="navbar-brand mb-0 h1">Videos Catalog: "1.0.3"</span>
     </nav>
     <div ng-app="videos" ng-controller="videosController" class="container">
       <div class="row">
