@@ -1,6 +1,6 @@
 def incrementDataSeedJobVersion(){
     echo "Incrementing the Application Version"
-    def currentVersion = sh(script: "grep 'Videos Catalog: V-' index.php | awk '{print \$NF}' | tr -d '\"'", returnStdout: true).trim()
+    def currentVersion = sh(script: "grep 'Videos Catalog: V-' index.php | awk '{print \$NF}'", returnStdout: true).trim()
     // Incrementing the Version
     def newVersion = incrementVersion(currentVersion)
     // Updating the Version in the Source Code
