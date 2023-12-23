@@ -6,7 +6,7 @@ def incrementDataSeedJobVersion(){
     // Updating the Version in the Source Code
     sh "sed -i 's/const version = \"$currentVersion\"/const version = \"$newVersion\"/' app.go"
     // Commit the Changes
-    sh "git remote add oumayma git@github.com:ayadi-mohamed/videos-microservice.git"
+    sh "git remote add oumayma git@github.com:ayadi-mohamed/videos-webapp.git"
     sh "git checkout main"
     sh "git commit -am 'Increment Version to $newVersion'"
     // Setting the New Version as an Environment Variable for Later Use
@@ -21,25 +21,25 @@ def incrementVersion(currentVersion) {
 
 def buildGoBinary() {
     echo "Compiling and Building the Application..."
-    sh "go build -o videos-microservice-${IMAGE_VERSION}"
+    sh "go build -o videos-webapp-${IMAGE_VERSION}"
 }
 
 def buildDockerImage() {
     echo "Building the Docker Image..."
-    sh "docker build -t oumaymacharrad/videos-microservice:${IMAGE_VERSION} ."
+    sh "docker build -t oumaymacharrad/videos-webapp:${IMAGE_VERSION} ."
 }
 
 def pushToDockerHub() {
     withCredentials([usernamePassword(credentialsId: "Docker-Hub-Credentials", passwordVariable: "PASS", usernameVariable: "USER")]) {
         echo "Pushing the Docker Image to Docker Hub..."
         sh "echo $PASS | docker login -u $USER --password-stdin"
-        sh "docker push oumaymacharrad/videos-microservice:${IMAGE_VERSION}"
+        sh "docker push oumaymacharrad/videos-webapp:${IMAGE_VERSION}"
     }
 }
 
 def trivyScan(){
     echo "Running Trivy Security Scan..."
-    sh "trivy image --format template --template '@/usr/local/share/trivy/templates/html.tpl' -o TrivyReport.html oumaymacharrad/videos-microservice:${IMAGE_VERSION} --scanners vuln"
+    sh "trivy image --format template --template '@/usr/local/share/trivy/templates/html.tpl' -o TrivyReport.html oumaymacharrad/videos-webapp:${IMAGE_VERSION} --scanners vuln"
 }
 
 def pushToDeploymentGitHub() {
