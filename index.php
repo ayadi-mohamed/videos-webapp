@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="bootstrap.min.css">
-  <title>Video Catalog V2</title>
+  <title>Videos Catalog</title>
 </head>
 
 <body>
@@ -12,7 +12,7 @@
 
   <article>
     <nav class="navbar navbar-light bg-light">
-      <span class="navbar-brand mb-0 h1">Video Catalog: V2</span>
+      <span class="navbar-brand mb-0 h1">Videos Catalog: V-1.0.0</span>
     </nav>
     <div ng-app="videos" ng-controller="videosController" class="container">
       <div class="row">
