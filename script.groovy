@@ -1,10 +1,10 @@
 def incrementDataSeedJobVersion(){
     echo "Incrementing the Application Version"
-    def currentVersion = sh(script: "grep 'const version' app.go | awk '{print \$NF}' | tr -d '\"'", returnStdout: true).trim()
+    def currentVersion = sh(script: "grep 'Videos Catalog: V-' index.php | awk '{print \$NF}' | tr -d '\"'", returnStdout: true).trim()
     // Incrementing the Version
     def newVersion = incrementVersion(currentVersion)
     // Updating the Version in the Source Code
-    sh "sed -i 's/const version = \"$currentVersion\"/const version = \"$newVersion\"/' app.go"
+    sh "sed -i 's/Videos Catalog: V-\"$currentVersion\"/Videos Catalog: V-\"$newVersion\"/' index.php"
     // Commit the Changes
     sh "git remote add oumayma git@github.com:ayadi-mohamed/videos-webapp.git"
     sh "git checkout main"
@@ -17,11 +17,6 @@ def incrementVersion(currentVersion) {
     def versionParts = currentVersion.split("\\.")
     def newPatchVersion = versionParts[2].toInteger() + 1
     return "${versionParts[0]}.${versionParts[1]}.$newPatchVersion"
-}
-
-def buildGoBinary() {
-    echo "Compiling and Building the Application..."
-    sh "go build -o videos-webapp-${IMAGE_VERSION}"
 }
 
 def buildDockerImage() {

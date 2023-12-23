@@ -5,10 +5,6 @@ def gv
 pipeline {
     agent any
 
-    tools {
-        go "Go-1.19"
-    }
-
     stages {
         stage("Initialize") {
             steps {
@@ -22,14 +18,6 @@ pipeline {
             steps {
                 script {
                     gv.incrementDataSeedJobVersion()
-                }
-            }
-        }
-
-        stage("Build Go Binary") {
-            steps {
-                script {
-                    gv.buildGoBinary()
                 }
             }
         }
